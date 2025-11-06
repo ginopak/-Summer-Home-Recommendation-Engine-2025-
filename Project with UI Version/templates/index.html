@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GoVacay </title>
+  <link rel="stylesheet" href="/static/styles.css"/>
+  <style>
+    /* New styles for login page and content hiding */
+    #login-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--bg-1);
+    }
+    #main-app-content {
+      display: none; /* Hidden by default */
+    }
+    .login-box, .create-user-box {
+      width: 90%;
+      max-width: 400px;
+    }
+    .toggle-link {
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+      cursor: pointer;
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .modal-overlay {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place even when scrolling */
+      inset: 0; /* Cover the entire screen */
+      background: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+      /* Use flexbox to center the modal content */
+      align-items: center;
+      justify-content: center;
+      z-index: 1000; /* Appear on top of all other content */
+    }
+    .modal-content {
+      background: var(--panel);
+      width: 90%;
+    }
+
+    header.panel {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .user-menu {
+        position: relative;
+        display: none; /* Hidden by default, shown on login */
+    }
+    .user-menu-name {
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 6px;
+        background-color: var(--bg-2);
+        font-weight: 500;
+    }
+    .user-menu-name:hover {
+        background-color: var(--bg-3);
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: var(--panel);
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .dropdown-content a {
+        color: var(--text-1);
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        cursor: pointer;
+    }
+    .dropdown-content a:hover {
+        background-color: var(--bg-2);
+    }
+    .user-menu:hover .dropdown-content {
+        display: block;
+    }
+
+  </style>
+<body>
+  <header class="panel header-stack">
+    <!-- Left side: Logo + Subtitle -->
+    <div class="logo-title-wrap">
+      <div class="logo">GoVacay</div>
+      <div class="subtitle">Summer Stays Recommender</div>
+    </div>
+
+    <!-- Right side: Username and dropdown -->
+    <div id="userMenu" class="user-menu">
+      <span id="userNameDisplay" class="user-menu-name"></span>
+      <div class="dropdown-content">
+        <a id="editProfileBtn">Edit Profile</a>
+        <a id="logoutBtn">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <div id="login-page">
+    <section id="login-box" class="panel login-box">
+      <h2>Login</h2>
+      <div class="inline">
+        <label for="login-user-id">User ID</label>
+        <input id="login-user-id" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"/>
+        <button id="loginBtn" type="button">Login</button>
+      </div>
+      <p id="loginStatus" class="muted" style="text-align: center; margin-top: 12px;"></p>
+      <a id="showCreateUserLink" class="toggle-link">Or Create a New Account</a>
+    </section>
+
+    <section id="create-user-box" class="panel create-user-box" style="display: none;">
+      <h2>Create New User</h2>
+      <div class="grid">
+        <div>
+          <label>Name</label>
+          <input id="name" placeholder="e.g., Alice"/>
+        </div>
+        <div>
+          <label>Group Size</label>
+          <input id="group_size" type="number" min="1" value="2"/>
+        </div>
+        <div>
+          <label>Preferred Environment</label>
+          <input id="preferred_environment" placeholder="beach / lake / mountain"/>
+        </div>
+        <div>
+          <label>Budget Min</label>
+          <input id="budget_min" type="number" min="0" value="50"/>
+        </div>
+        <div>
+          <label>Budget Max</label>
+          <input id="budget_max" type="number" min="0" value="500"/>
+        </div>
+      </div>
+      <button id="createUserBtn" type="button">Create Account</button>
+      <a id="showLoginLink" class="toggle-link">Already have an account? Login</a>
+    </section>
+  </div>
+
+  <div id="main-app-content">
+    <main class="two-col">
+      <aside class="panel sidebar" id="filtersPanel">
+        <h2>Filters</h2>
+        <div class="grid filters-grid">
+          <div>
+            <label>Environment Keyword</label>
+            <input id="env"/>
+          </div>
+          <div>
+            <label>Min Price</label>
+            <input id="min_price" type="number" min="0"/>
+          </div>
+          <div>
+            <label>Max Price</label>
+            <input id="max_price" type="number" min="0"/>
+          </div>
+          <div>
+            <label>Accommodates ≥</label>
+            <input id="accommodates" type="number" min="1"/>
+          </div>
+        </div>
+        <div class="inline">
+          <button id="searchBtn" type="button">Search Listings</button>
+          <button id="loadFavBtn" type="button">My Favorites</button>
+          <button id="myBookingsBtn" type="button">My Bookings</button>
+        </div>
+      </aside>
+
+      <section class="content">
+        <section class="panel">
+          <h2>Dataset <span id="datasetSource" class="muted">Original</span></h2>
+          <div class="inline" style="gap:12px;flex-wrap:wrap">
+            <button id="openPromptBtn" type="button">✏️ Add prompt</button>
+          </div>
+          <div class="inline" style="gap:12px;flex-wrap:wrap">
+            <button id="useOriginalBtn" type="button">Use original csv</button>
+            <button id="useSyntheticBtn" type="button">Use synthetic (use current settings)</button>
+            <label><input id="include_real" type="checkbox" checked/> Include real listings</label>
+          </div>
+          <div class="muted">We’ll generate a csv for download; nothing is saved on the server.</div>
+        </section>
+
+        <section class="panel">
+          <div class="container">
+            <h2>Listings</h2>
+            <div class="inline">
+              <div>
+                <label>Sort By</label>
+                <select id="sort_by">
+                  <option value="price" selected>Price</option>
+                  <option value="review_rating">Rating</option>
+                  <option value="accommodates">Accommodates</option>
+                </select>
+              </div>
+              <div>
+                <label>Order</label>
+                <select id="ascending">
+                  <option value="true" selected>Ascending</option>
+                  <option value="false">Descending</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="inline">
+            <p id="currentUser"></p>
+            <button id="recBtn" type="button">Recommend</button>
+          </div>
+          <div id="results" class="cards"></div>
+          <div class="pager">
+            <button id="prevBtn" type="button">Prev</button>
+            <span id="pageInfo" class="muted"></span>
+            <button id="nextBtn" type="button">Next</button>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <template id="cardTmpl">
+    <div class="card">
+      <div class="card-head">
+        <h3 class="card-title"></h3>
+        <div class="card-tag"></div>
+      </div>
+      <div class="card-body">
+        <div class="row"><strong>Location:</strong> <span data-field="location"></span></div>
+        <div class="row"><strong>Type:</strong> <span data-field="property_type"></span></div>
+        <div class="row"><strong>Accommodates:</strong> <span data-field="accommodates"></span></div>
+        <div class="row"><strong>Price:</strong> $<span data-field="price"></span>/night</div>
+        <div class="row"><strong>Rating:</strong> <span data-field="review_rating"></span></div>
+        <div class="row"><strong>Tags:</strong> <span data-field="tags"></span></div>
+        <div class="row"><strong>Amenities:</strong><span data-field="amenities"></span></div>
+      </div>
+      <div class="card-actions">
+        <button class="fav-btn" type="button">★ Add to Favorites</button>
+        <button class="book-btn" type="button">📅 Book</button>
+      </div>
+    </div>
+  </template>
+
+  <div id="promptModal" class="modal-overlay">
+    <div class="panel modal-content" style="max-width:680px;">
+      <h3>Add prompt</h3>
+      <textarea id="syn_prompt" rows="5" style="width:100%" placeholder="e.g., Generate 5 fake property listings in Ontario under $200/night with lake access. Output as JSON."></textarea>
+      <div class="inline" style="justify-content:flex-end">
+        <button id="cancelPromptBtn" type="button">Cancel</button>
+        <button id="savePromptBtn" type="button">Use prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="bookModal" class="modal-overlay">
+    <div class="panel modal-content" style="max-width:560px;">
+      <h3>Book: <span id="book_title"></span></h3>
+      <input type="hidden" id="book_listing_id"/>
+      <div class="grid" style="grid-template-columns: repeat(2,minmax(0,1fr));">
+        <div>
+          <label>Check-in</label>
+          <input id="book_checkin" type="date"/>
+        </div>
+        <div>
+          <label>Check-out</label>
+          <input id="book_checkout" type="date"/>
+        </div>
+      </div>
+      <div class="inline" style="justify-content:space-between">
+        <span id="book_status" class="muted"></span>
+        <div class="inline">
+          <button id="checkAvailBtn" type="button">Check availability</button>
+          <button id="confirmBookBtn" type="button" disabled>Confirm booking</button>
+          <button id="bookCancelBtn" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="bookingsModal" class="modal-overlay">
+    <div class="panel modal-content" style="max-width:720px;">
+        <h3>My Bookings</h3>
+        <div id="bookingsList">
+            </div>
+        <div class="inline" style="justify-content:flex-end; margin-top: 1rem;">
+            <button id="bookingsCloseBtn" type="button">Close</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="editProfileModal" class="modal-overlay">
+    <div class="panel modal-content" style="max-width:560px;">
+      <h3>Edit My Profile</h3>
+      <div class="grid">
+        <div>
+          <label>Name</label>
+          <input id="edit_name"/>
+        </div>
+        <div>
+          <label>Group Size</label>
+          <input id="edit_group_size" type="number" min="1"/>
+        </div>
+        <div>
+          <label>Preferred Environment</label>
+          <input id="edit_preferred_environment"/>
+        </div>
+        <div>
+          <label>Budget Min</label>
+          <input id="edit_budget_min" type="number" min="0"/>
+        </div>
+        <div>
+          <label>Budget Max</label>
+          <input id="edit_budget_max" type="number" min="0"/>
+        </div>
+      </div>
+      <div class="inline" style="justify-content:flex-end">
+        <button id="cancelEditProfileBtn" type="button">Cancel</button>
+        <button id="saveProfileBtn" type="button">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="/static/app.js"></script>
+<img src="/static/img/bottom.png" alt="" class="corner-art" loading="lazy">
+
+</body>
+
+<div class="footer">
+  <h2>Team 2</h2>
+    <p>Ishaan Dawra </p>
+    <p>Annie Li</p>
+    <p>Gino Pak</p>
+    <p>Louis Tian</p>
+    <p>Cathy Yu</p>
+    <p>   </p>
+    <p>   </p>
+    <p>   </p>
+</div>
+</html>

@@ -1,0 +1,6 @@
+name,location,property_type,accommodates,amenities,price,min_nights,max_nights,review_rating,tags
+Lakeside Retreat Condo,"Toronto, ON",entire condo,4,"WiFi, TV, Air conditioning, Kitchen, Heating, Washer, Dryer, Parking",499.99,3,7,4.8,"lakeside, condo, Toronto"
+Rustic Cottage by the River,"Ottawa, ON",entire rental unit,2,"WiFi, TV, Fireplace, Kitchen, Heating, River view",499.99,2,5,4.9,"cottage, river, Ottawa"
+Uptown Modern Apartment,"Hamilton, ON",apartment,2,"WiFi, TV, Air conditioning, Kitchen, Heating, Parking",499.99,2,7,4.7,"modern, apartment, Hamilton"
+Cozy Farmhouse Getaway,"Kitchener, ON",entire rental unit,4,"WiFi, TV, Fireplace, Kitchen, Heating, Private yard",499.99,2,5,4.6,"farmhouse, getaway, Kitchener"
+Downtown Penthouse Suite,"London, ON",entire condo,2,"WiFi, TV, Air conditioning, Kitchen, Heating, Elevator",499.99,2,7,4.9,"penthouse, downtown, London"

@@ -1,0 +1,318 @@
+
+:root{
+  /* Palette */
+  --c1: #FCFCF0; /* sky */
+  --c3: #EBF4F8; /* teal-blue */
+  --c2: #C4E1F6; /* light-blue */
+  --c4: #F5F0CD; /* cream */
+  --c5: #FADA7A; /* yellow */
+  --c6: #FFEEE4; /* peach */
+  --c7: #FCE7C8; /* coral */
+
+  /* Tokens (map to roles) */
+  --bg: var(--c1);
+  --panel: var(--c2);
+  --card: var(--c3);
+  --text: #183B4E;        /* readable on light bg */
+  --muted: #183B4E;       /* we’ll lower opacity on use */
+  --outline: var(--c2);
+
+  --primary: var(--c6);         /* buttons/links */
+  --primary-hover: var(--c7);   /* hover state */
+  --surface-alt: var(--c1);     /* optional surfaces */
+  
+  /* Page layout variables */
+  --page-max: 1200px;
+  --gutter: 48px;
+  --header-height: 72px; /* Define header height as a variable */
+}
+
+/* Base */ 
+*{ box-sizing: border-box; }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: url("../static/img/bg.png") center center / cover no-repeat fixed;
+  color: var(--text);
+  padding-top: var(--header-height); 
+}
+
+
+header{
+  /* Positioning and Sizing */
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%; /* Make the bar full-width */
+  height: var(--header-height); /* Use variable for height */
+  max-width: none; 
+  z-index: 1000; 
+
+  /* Appearance */
+  background-color: var(--panel); /* Solid background color */
+  border-bottom: 1px solid var(--outline);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 var(--gutter); /* Apply side padding (gutters) */
+}
+
+h1{ margin:0; font-size: 20px; }
+.muted{ color: var(--muted); opacity: .7; font-size: 12px; }
+
+/* Layout  */
+main{ padding: 20px; max-width: 1080px; margin: 0 auto; }
+.panel{
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel) 100%);
+  border: 1px solid var(--outline);
+  border-radius: 16px;
+  padding: 16px; margin-bottom: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  /* The max-width and margin centering should apply to panels inside the main content, not the header */
+  max-width: var(--page-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*  Form controls  */
+.grid{ display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.grid label{ display:block; font-size:12px; color: var(--muted); margin-bottom:6px; }
+.grid input, .grid select{
+  width:100%; padding:10px 12px; border-radius:10px;
+  border: 1px solid var(--outline);
+  background: var(--surface-alt);
+  color: var(--text);
+}
+
+.inline{ display:flex; align-items:center; gap:8px; margin-top:10px; }
+button{
+  border:1px solid var(--outline);
+  background: var(--primary);
+  color: var(--text);
+  padding:10px 12px; border-radius:12px; cursor:pointer;
+}
+button:hover{ background: var(--primary-hover); }
+
+/*  Cards & results */
+.cards{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.card{
+  background: var(--card);
+  border:1px solid var(--outline);
+  border-radius: 16px; padding: 12px;
+  display:flex; flex-direction:column; gap:8px;
+}
+.card-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.card-title{ font-size:16px; margin:0; }
+.card-tag{ font-size:12px; color: var(--muted); opacity:.8; }
+.row{ font-size:13px; opacity:0.9; }
+.card-actions{ display:flex; justify-content:flex-end; }
+
+.pager{ display:flex; gap:6px; margin-top:12px; }
+.pager button{ padding:6px 10px; }
+
+/*  Responsive  */
+@media (max-width: 900px){
+  .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .cards{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 600px){
+  .grid{ grid-template-columns: 1fr; }
+  .cards{ grid-template-columns: 1fr; }
+}
+
+/* make the page background white */
+html { background: #fff; }
+
+/* center and cap width of the main content area */
+main{
+  max-width: var(--page-max) !important;
+  margin: 0 auto !important;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* smaller gutters on phones */
+@media (max-width: 640px){
+  :root{ --gutter: 16px; }
+}
+
+.more-link{
+  font-weight:700;
+  cursor:pointer;
+  user-select:none;
+}
+.more-link:hover{ opacity:.85; }
+.more-link:focus-visible{ outline:2px solid var(--outline); outline-offset:2px; }
+
+
+.amenities-grid{
+  /* The grid properties have been removed to revert to a single column list */
+  gap:4px 12px;
+  margin:6px 0 0;
+  padding-left:1.2em;
+  list-style:disc;
+  list-style-position:outside;
+  font-size:13px;            /* same as .row */
+}
+
+/* Let grid items shrink so long text wraps inside */
+.cards > .card{ min-width:0; overflow:hidden; }
+
+/* Card header layout + safe wrapping */
+.card-head{
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+  gap: 4px; 
+  margin-bottom: 8px;
+  min-width: 0;
+}
+
+.card-title{
+  margin:0;
+  font-size:20px;
+  line-height:1.3; 
+  word-break: break-word; 
+}
+
+.card-tag {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+  opacity: .85;
+
+  width: 100%;                 
+  white-space: nowrap;         
+  overflow: hidden;            
+  text-overflow: ellipsis;     
+}
+
+@media (max-width: 700px){
+  .card-head{ grid-template-columns:1fr; }
+  .card-tag{ text-align:left; max-width:100%; }
+}
+
+#promptModal{ display:none; }
+#promptModal.show{ display:flex; }
+
+/* Two-column layout */
+main.two-col{
+  display: grid;
+  grid-template-columns: 320px 1fr !important;
+  gap: 12px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.panel.sidebar{
+  position: sticky;
+  top: var(--header-height); /* Use variable for consistency */
+  align-self: start;
+}
+
+@media (max-width: 900px){
+  main.two-col{ grid-template-columns: 1fr; }
+  .panel.sidebar{ position: static; }
+}
+
+.filters-grid{
+  grid-template-columns: 1fr !important;
+  gap: 12px;
+}
+
+body.home-mode .corner-art {
+  position: fixed;
+  left: 15vw;
+  bottom: 2vh;
+  width: clamp(100px, 12vw, 200px);
+  height: auto;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+body.login-mode .corner-art {
+  display: none;
+}
+.header-stack {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: var(--page-max); /* This constrains the content inside the header */
+}
+
+.logo-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-menu {
+  position: relative;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1d3b4f;
+  cursor: pointer;
+}
+
+.user-menu-name {
+  margin-right: 10px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  min-width: 140px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.user-menu:hover .dropdown-content {
+  display: block;
+}
+
+body.login-mode {
+  background: url("../static/img/bg_login.png") center center / cover no-repeat fixed;
+}
+
+.footer {
+    background-color: rgba(255, 99, 71, 0);
+    text-align: center;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #183B4E;
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: #183B4E;
+  opacity: 0.85;
+  padding-left: 4px;
+}
+
+
+
+header.panel {
+  max-width: none;
+  width: 100vw;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--panel); 
+}
+
+body {
+  padding-top: 72px;
+}

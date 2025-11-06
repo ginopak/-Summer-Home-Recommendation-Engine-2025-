@@ -1,0 +1,138 @@
+[
+    {
+        "user_id": "6799c324-bc3c-4c0e-be9c-1399bda568d4",
+        "name": "123",
+        "group_size": 2,
+        "preferred_environment": "lake",
+        "budget_min": 500.0,
+        "budget_max": 1000.0
+    },
+    {
+        "user_id": "4a0930cd-0510-4253-9bce-75931532c5bb",
+        "name": "Zilan",
+        "group_size": 3,
+        "preferred_environment": "condo",
+        "budget_min": 600.0,
+        "budget_max": 1000.0
+    },
+    {
+        "user_id": "77cd2d43-c68c-4b53-b841-2b1216419d96",
+        "name": "Alice",
+        "group_size": 2,
+        "preferred_environment": "lake",
+        "budget_min": 100.0,
+        "budget_max": 500.0
+    },
+    {
+        "user_id": "c842943c-17ed-4254-b8a6-40340ba28762",
+        "name": "Alice",
+        "group_size": 2,
+        "preferred_environment": "beach",
+        "budget_min": 100.0,
+        "budget_max": 500.0
+    },
+    {
+        "user_id": "6d3503fe-bf17-4a97-901f-0506e4061d87",
+        "name": "ABD",
+        "group_size": 2,
+        "preferred_environment": "beach",
+        "budget_min": 50.0,
+        "budget_max": 400.0
+    },
+    {
+        "user_id": "111852f0-5dac-4e0a-81f4-d4e3eea86f0c",
+        "name": "Alice",
+        "group_size": 2,
+        "preferred_environment": "beach",
+        "budget_min": 100.0,
+        "budget_max": 500.0
+    },
+    {
+        "user_id": "876e0bf8-dc94-40e1-8ae5-1db99c27e58a",
+        "name": "Alice",
+        "group_size": 2,
+        "preferred_environment": "beach",
+        "budget_min": 50.0,
+        "budget_max": 500.0
+    },
+    {
+        "user_id": "691f20a2-0b18-449d-9e74-4cbe2ed86422",
+        "name": "Alice",
+        "group_size": 2,
+        "preferred_environment": "",
+        "budget_min": 50.0,
+        "budget_max": 500.0
+    },
+    {
+        "user_id": "4f375207-b471-4950-87f5-11b6b8b43958",
+        "name": "Alice",
+        "group_size": 2,
+        "preferred_environment": "beach",
+        "budget_min": 100.0,
+        "budget_max": 500.0
+    },
+    {
+        "user_id": "80bf2df2-1d3b-4841-b756-d1d74ced410a",
+        "name": "Alice",
+        "group_size": 2,
+        "preferred_environment": "lake",
+        "budget_min": 50.0,
+        "budget_max": 400.0
+    },
+    {
+        "user_id": "4d44534a-2883-451d-819e-08e797831559",
+        "name": "akk",
+        "group_size": 2,
+        "preferred_environment": "beach",
+        "budget_min": 60.0,
+        "budget_max": 500.0
+    },
+    {
+        "user_id": "af0be0cc-b83d-48f0-b5f8-a1d55bc29bde",
+        "name": "Alice",
+        "group_size": 2,
+        "preferred_environment": "lake",
+        "budget_min": 50.0,
+        "budget_max": 500.0
+    },
+    {
+        "user_id": "ee4a97a7-6a2f-4a8c-8ee5-e291cdb72315",
+        "name": "aa",
+        "group_size": 2,
+        "preferred_environment": "beach",
+        "budget_min": 500.0,
+        "budget_max": 1000.0
+    },
+    {
+        "user_id": "9a5e2043-8e88-450c-a9dc-e308c39dcbfc",
+        "name": "qqww",
+        "group_size": 2,
+        "preferred_environment": "lake",
+        "budget_min": 50.0,
+        "budget_max": 500.0
+    },
+    {
+        "user_id": "4e8c9736-4594-4f77-b333-e4adeb1cb093",
+        "name": "James",
+        "group_size": 2,
+        "preferred_environment": "beach",
+        "budget_min": 500.0,
+        "budget_max": 1000.0
+    },
+    {
+        "user_id": "1de13401-6394-4abe-9f32-429e8d50d07d",
+        "name": "qqq",
+        "group_size": 2,
+        "preferred_environment": "beach",
+        "budget_min": 50.0,
+        "budget_max": 500.0
+    },
+    {
+        "user_id": "75dbfacd-7fb7-4a85-903d-51f26471cdba",
+        "name": "Alice",
+        "group_size": 2,
+        "preferred_environment": "",
+        "budget_min": 50.0,
+        "budget_max": 500.0
+    }
+]

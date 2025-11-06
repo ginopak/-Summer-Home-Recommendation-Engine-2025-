@@ -1,0 +1,50 @@
+[
+  {
+    "user_id": "94664296-4998-4503-9f48-e3f9823b531f",
+    "name": "James",
+    "group_size": 2,
+    "preferred_environment": "beach",
+    "budget_min": 50.0,
+    "budget_max": 500.0
+  },
+  {
+    "user_id": "a22f37f8-ef6b-4b1e-b9c6-eff73d886ac0",
+    "name": "Zilan",
+    "group_size": 4,
+    "preferred_environment": "lake",
+    "budget_min": 50.0,
+    "budget_max": 500.0
+  },
+  {
+    "user_id": "c16724ad-9561-41da-a4fa-d7b674f4ac99",
+    "name": "Jason",
+    "group_size": 2,
+    "preferred_environment": "beach",
+    "budget_min": 50.0,
+    "budget_max": 500.0
+  },
+  {
+    "user_id": "328f6fc4-7323-4162-9303-62a55969188e",
+    "name": "Lucas",
+    "group_size": 2,
+    "preferred_environment": "beach",
+    "budget_min": 50.0,
+    "budget_max": 500.0
+  },
+  {
+    "user_id": "916c0e15-cde2-4b62-a9aa-5c17fada95e8",
+    "name": "aka",
+    "group_size": 2,
+    "preferred_environment": "lake",
+    "budget_min": 50.0,
+    "budget_max": 500.0
+  },
+  {
+    "user_id": "c20fa9e2-5227-4653-bdae-3cf5ba81fc1d",
+    "name": "aka",
+    "group_size": 2,
+    "preferred_environment": "",
+    "budget_min": 50.0,
+    "budget_max": 500.0
+  }
+]
