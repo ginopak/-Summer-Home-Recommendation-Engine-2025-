@@ -1,4 +1,7 @@
 # GoVacay
+
+This project implements an end-to-end data pipeline designed to process and augment real-world real estate data. Focusing on the Toronto market, the system cleans over 21,000 Airbnb listings and leverages Large Language Models (LLMs) to generate high-quality synthetic datasets for advanced modeling.
+
 🤖 LLM Model Info
 Mistral-7B-Instruct (via OpenRouter)
 
